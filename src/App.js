@@ -17,13 +17,16 @@ import AddAttendance from "./Containers/Attendance/AddAttendance"
 import ViewAttendance from "./Containers/Attendance/ViewAttendance"
 import UpdateAttendance from "./Containers/Attendance/UpdateAttendance"
 
+import EmpMailer from "./Containers/Mailers/EmpMailer"
+
 import { Route, Routes } from "react-router-dom"
+
 
 
 function App() {
   return (
     <>
-      <Header/>      
+      <Header/>          
       <Routes>
         
         <Route path='/homeemp' element={<HomeEmp />} />
@@ -40,6 +43,9 @@ function App() {
         <Route path='/addattendance' element={<AddAttendance />} />
         <Route path='/viewattendance/:id' element={<ViewAttendance />} />
         <Route path='/updateatt/:id' element={<UpdateAttendance />} />
+
+        <Route path='/empmails' element={<EmpMailer />} />
+        
       </Routes>
     
       

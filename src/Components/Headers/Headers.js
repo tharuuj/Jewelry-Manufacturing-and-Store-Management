@@ -22,8 +22,12 @@ const Headers = () => {
           </Nav>
           <Nav className="me-auto">
             <NavLink to="/attendance" className="text-decoration-none text-light ">Attendance</NavLink>
+          </Nav>          
+          <Nav className="me-auto">
+            <NavLink to="/empmails" className="text-decoration-none text-light ">Send emails</NavLink>
           </Nav>
-          
+
+
         </Container>
       </Navbar>
     </>
