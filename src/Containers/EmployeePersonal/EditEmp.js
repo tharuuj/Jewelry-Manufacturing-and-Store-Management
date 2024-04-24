@@ -71,13 +71,7 @@ const navigate = useNavigate();
     setImage(e.target.files[0])
   }
 
-  /*
-  //pdf
-  const handlePdfUpload = (e) => {
-    const file = e.target.files[0];
-    setPdfFile(file);
-  };
-*/
+  
   // Date change handlers
   const handleStartDateChange = (date) => {
     setStartDate(date);
