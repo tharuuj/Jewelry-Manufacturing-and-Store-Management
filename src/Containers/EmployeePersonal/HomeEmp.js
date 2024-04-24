@@ -132,7 +132,6 @@ const HomeEmp = () => {
             </div>
             <div className="add_btn">
               <Button variant="primary" onClick={adduser}> <i class="fa-solid fa-plus"></i>&nbsp; Add Employee</Button>
-              {/*  <Button variant="primary"> <i class="fa-solid fa-plus"></i>&nbsp; Add Employee</Button> */}
             </div>
           </div>
 
@@ -141,7 +140,6 @@ const HomeEmp = () => {
 
           <div className="filter_div mt-5 d-flex justify-content-between flex-wrap">
             <div className="export_csv">
-              {/*  <Button className='export_btn' onClick={exportuser}>Export To Csv</Button>   */}
               <Button className='export_btn' onClick={exportemployee}>Export To Csv</Button>
             </div>
             <div className="filter_gender">
@@ -183,7 +181,6 @@ const HomeEmp = () => {
                   <i class="fa-solid fa-sort"></i>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {/*  <Dropdown.Item onClick={()=>setSort("new")}>New</Dropdown.Item>   */}
                   <Dropdown.Item onClick={() => setSort("new")}>New</Dropdown.Item>
                   <Dropdown.Item onClick={() => setSort("old")}>Old</Dropdown.Item>
                 </Dropdown.Menu>
