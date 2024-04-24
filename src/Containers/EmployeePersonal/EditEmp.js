@@ -114,7 +114,7 @@ const navigate = useNavigate();
   const submitUserData = async (e) => {
     e.preventDefault();
 
-    const { empfname, emplname, empemail, empmobile, empaddress, empgender, empType } = inputdata;
+    const { empfname, emplname, empemail, empmobile, empaddress, empgender, empType, salaryPerDay } = inputdata;
 
     if (empfname === "") {
       toast.error("First name is Required !")
@@ -329,21 +329,7 @@ const navigate = useNavigate();
                     <Form.Label>Select Status</Form.Label>
                     <Select options={options} defaultValue={status} onChange={setStatusValue} />
                   </Form.Group>
-                  {/* 
-                  <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-                    <Form.Label>Upload PDF Document</Form.Label>
-                    <Form.Control
-                      type="file"
-                      accept=".pdf"
-                      name="pdfFile"
-                      onChange={handlePdfUpload}
-                      placeholder="Select PDF Document"
-                    />
-                    <Form.Text className="text-muted">
-                      Please upload a PDF document.
-                    </Form.Text>
-                  </Form.Group>
-*/}
+                  
                 </Row>
               </Form>
             </div>

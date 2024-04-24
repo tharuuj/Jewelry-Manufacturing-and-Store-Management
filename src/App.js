@@ -19,6 +19,9 @@ import UpdateAttendance from "./Containers/Attendance/UpdateAttendance"
 
 import EmpMailer from "./Containers/Mailers/EmpMailer"
 
+import HomeLeave from "./Containers/Leaves/HomeLeave"
+import AddLeave from "./Containers/Leaves/AddLeave"
+
 import { Route, Routes } from "react-router-dom"
 
 
@@ -45,7 +48,10 @@ function App() {
         <Route path='/updateatt/:id' element={<UpdateAttendance />} />
 
         <Route path='/empmails' element={<EmpMailer />} />
-        
+
+        <Route path='/addleave' element={<AddLeave />} />
+        <Route path='/leave' element={<HomeLeave />} />
+
       </Routes>
     
       

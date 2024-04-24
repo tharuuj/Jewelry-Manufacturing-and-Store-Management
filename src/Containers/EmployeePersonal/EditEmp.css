@@ -30,7 +30,7 @@
 }
 
 .btn-primary {
-  background-color: #c7c544;
+  background-color: #617be3;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -40,7 +40,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #90990f;
+  background-color: #71cddf;
 }
 
 /* Customize form inputs */

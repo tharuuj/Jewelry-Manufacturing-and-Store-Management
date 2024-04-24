@@ -1,9 +1,9 @@
 .export_btn,.search_btn {
-    background: #36aa8f;
+    background: #4ee3e8;
     border: none;
 }
 .export_btn:hover,.search_btn:hover{
-    background: #1f856d;
+    background: #5fd4d8;
 }
 .dropdown_btn {
     background: none !important;

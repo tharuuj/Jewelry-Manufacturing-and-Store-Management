@@ -9,6 +9,7 @@ import { BASE_URL } from '../../services/helper';
 import moment from "moment"
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const Profile = () => {
 
@@ -63,10 +64,9 @@ const Profile = () => {
     }
 
     // Format ID with prefix, last four digits of the original ID, and counter
-   // return prefix + lastFourDigits + counter.toString().padStart(3, "0");
-   return prefix + lastFourDigits;
+    // return prefix + lastFourDigits + counter.toString().padStart(3, "0");
+    return prefix + lastFourDigits;
   };
-
 
   useEffect(() => {
     employeeProfileGet();
@@ -75,24 +75,41 @@ const Profile = () => {
     }, 1200)
   }, [id]);
 
-
-//Report generation
+  // Report generation
   const generatePDF = () => {
     const input = document.getElementById('profile-container');
-    const pdfWidth = input.offsetWidth; // Get the width of the container
-    const pdfHeight = input.offsetHeight; // Get the height of the container
+    const pdf = new jsPDF('p', 'pt');
+    const pdfWidth = 500;
+    const pdfHeight = 500;
 
-    html2canvas(input, { scale: 2 }) // Use scale to improve image quality
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'px', [pdfWidth, pdfHeight]); // Set PDF dimensions
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight); // Add image with specified dimensions
-        pdf.save(`employee_profile_${id}.pdf`);
-      });
+    const tableHeaders = ['Field', 'Value'];
+    const data = [
+      ['Employee ID', formatEmployeeID(employeeprofile._id, employeeprofile.empType, employeeCounters[employeeprofile.empType])],
+      ['Date Created', moment(employeeprofile.datecreated).format("DD-MM-YYYY")],
+      ['Date Updated', employeeprofile.dateUpdated],
+      ['Full Name', employeeprofile.empfname + employeeprofile.emplname],
+      ['Email', employeeprofile.empemail],
+      ['Phone Number', employeeprofile.empmobile],
+      ['Address', employeeprofile.empaddress],
+      ['Gender', employeeprofile.empgender],
+      ['Employee Type', employeeprofile.empType],
+      ['Basic Salary', employeeprofile.salaryPerDay],
+      ['Start Date', employeeprofile.startDate],
+      ['End Date', employeeprofile.endDate],
+      ['Status', employeeprofile.status]
+    ];
+
+    pdf.setFontSize(12);
+    pdf.text("Diamonds.lk   Employee Profile", pdfWidth / 2, 30, 'center');
+    pdf.autoTable({
+      startY: 50,
+      head: [tableHeaders],
+      body: data,
+      startY: 50
+    });
+
+    pdf.save(`employee_profile_${id}.pdf`);
   };
-  
- 
-
 
   return (
     <>
@@ -180,7 +197,7 @@ const Profile = () => {
           </Card>
         </div>
       }
-{/* Button to generate PDF */}
+      {/* Button to generate PDF */}
       <div className="text-center mt-3">
         <button className="btn btn-primary" onClick={generatePDF}>Generate PDF</button>
       </div>
@@ -189,6 +206,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-

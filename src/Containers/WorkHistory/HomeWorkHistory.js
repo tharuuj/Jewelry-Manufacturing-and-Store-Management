@@ -142,7 +142,7 @@ const HomeWorkHistory = () => {
             
             {/* sort by value */}           
             <div className="filter_newold">
-              <h3>Sort By Value</h3>
+              <h5>Sort By Value</h5>
               <Dropdown className='text-center'>
                 <Dropdown.Toggle className='dropdown_btn' id="dropdown-basic">
                   <i class="fa-solid fa-sort"></i>
@@ -160,7 +160,7 @@ const HomeWorkHistory = () => {
 
             <div className="filter_status">
               <div className="status">
-                <h3>Filter By Work Status</h3>
+                <h5>Filter By Work Status</h5>
                 <div className="status_radio d-flex justify-content-between flex-wrap">
                   <Form.Check
                     type={"radio"}

@@ -97,3 +97,12 @@ export const deleteattendancefunc = async(id)=>{
 }
 
 
+//Work History -----------------------------------------------------------------------------------------
+export const empleavefunc = async(data)=>{
+    return await commonrequest("POST",`${BASE_URL}/leave/addleave`,data);
+}
+
+export const leavegetfunc = async(search, page)=>{
+    return await commonrequest("GET",`${BASE_URL}/leave/leavedetails?search=${search}&page=${page}`,"");
+}
+

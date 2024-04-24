@@ -122,7 +122,7 @@ const HomeEmp = () => {
               <Form className="d-flex">
                 <Form.Control
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search by name"
                   className="me-2"
                   aria-label="Search"
                   onChange={(e) => setSearch(e.target.value)}
