@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify"
 import Confirmation from '../Confirmation/Confirmation';
 import "./tableattendance.css"
+import moment from "moment"
 
 const TableAttendance = ({ attendancedata, deleteAttendance, handlePrevious, handleNext, page, pageCount, setPage }) => {
 
@@ -77,55 +78,57 @@ const TableAttendance = ({ attendancedata, deleteAttendance, handlePrevious, han
                     <th>In Time</th>
                     <th>Out Time</th>
                     <th>Working Time (HH:MM)</th>
-<th>Overtime (HH:MM)</th> {/* New column for overtime */}
+                    <th>Overtime (HH:MM)</th> {/* New column for overtime */}
+                    <th>Attendance Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                {attendancedata.length > 0 ? attendancedata.map((element, index) => {
-          const overtime = calculateOvertime(element.workingtime);
-          return (
-                        <>
-                          <tr>
-                            <td>{index + 1 + (page - 1) * 5}</td>
-                            <td>{formatEmployeeID(element.employeeID)}</td>
-                            <td>{element.intime}</td>
-                            <td>{element.outtime}</td>
-                            <td>{element.workingtime}</td>
-                            <td>{overtime}</td> {/* Display calculated overtime */}
-                            <td>
-                              <Dropdown>
-                                <Dropdown.Toggle variant='light' className='action' id="dropdown-basic">
-                                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </Dropdown.Toggle>
+                  {attendancedata.length > 0 ? attendancedata.map((element, index) => {
+                    const overtime = calculateOvertime(element.workingtime);
+                    return (
+                      <>
+                        <tr>
+                          <td>{index + 1 + (page - 1) * 5}</td>
+                          <td>{formatEmployeeID(element.employeeID)}</td>
+                          <td>{element.intime}</td>
+                          <td>{element.outtime}</td>
+                          <td>{element.workingtime}</td>
+                          <td>{overtime}</td> {/* Display calculated overtime */}
+                          <td>{moment(element.attdate).format("DD-MM-YYYY HH:MM")}</td>
+                          <td>
+                            <Dropdown>
+                              <Dropdown.Toggle variant='light' className='action' id="dropdown-basic">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                              </Dropdown.Toggle>
 
-                                <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <NavLink to={`/viewattendance/${element._id}`} className="text-decoration-none">
-                                      <i class="fa-solid fa-eye" style={{ color: "green" }}></i> <span>View</span>
-                                    </NavLink>
-                                  </Dropdown.Item>
-                                  <Dropdown.Item >
-                                    <NavLink to={`/updateatt/${element._id}`} className="text-decoration-none">
-                                      <i class="fa-solid fa-pen-to-square" style={{ color: "blue" }}></i> <span>Edit</span>
-                                    </NavLink>
-                                  </Dropdown.Item>
+                              <Dropdown.Menu>
+                                <Dropdown.Item >
+                                  <NavLink to={`/viewattendance/${element._id}`} className="text-decoration-none">
+                                    <i class="fa-solid fa-eye" style={{ color: "green" }}></i> <span>View</span>
+                                  </NavLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item >
+                                  <NavLink to={`/updateatt/${element._id}`} className="text-decoration-none">
+                                    <i class="fa-solid fa-pen-to-square" style={{ color: "blue" }}></i> <span>Edit</span>
+                                  </NavLink>
+                                </Dropdown.Item>
 
-                                  <Dropdown.Item >
-                                    <div onClick={() => openConfirmation(element._id)}>
-                                      <i class="fa-solid fa-trash" style={{ color: "red" }}></i> <span>Delete</span>
-                                    </div>
+                                <Dropdown.Item >
+                                  <div onClick={() => openConfirmation(element._id)}>
+                                    <i class="fa-solid fa-trash" style={{ color: "red" }}></i> <span>Delete</span>
+                                  </div>
 
 
-                                  </Dropdown.Item>
-                                </Dropdown.Menu>
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
 
-                              </Dropdown>
-                            </td>
-                          </tr>
-                        </>
-                      )
-                    }) : <div className='no_data text-center'>No Data Found</div>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                  }) : <div className='no_data text-center'>No Data Found</div>
                   }
 
                 </tbody>

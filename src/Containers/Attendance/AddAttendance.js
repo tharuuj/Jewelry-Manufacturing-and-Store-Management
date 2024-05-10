@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import 'react-toastify/dist/ReactToastify.css';
 import "./addAttendance.css"
 import { addAttendanceData } from '../../Components/context/AttendanceContextProvider';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddAttendance = () => {
@@ -18,9 +19,11 @@ const AddAttendance = () => {
         employeeID: "",
         intime: "",
         outtime: "",
-        workingtime: ""
+        workingtime: "",
+        attdate: new Date(),
 
     });
+
 
     const [employeeIds, setEmployeeIds] = useState([]); // State to store employee IDs
 
@@ -57,6 +60,19 @@ const AddAttendance = () => {
         return prefix + lastFourDigits;
     };
 
+    // Handle date change for start date
+    const handleDateChange = (date, fieldName) => {
+        setInputData({ ...inputdata, [fieldName]: date });
+    }
+
+    //get the current time
+    const getCurrentTime = () => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
+    
 
     //calculate working time
     const calculateWorkingTime = () => {
@@ -86,11 +102,13 @@ const AddAttendance = () => {
     const submitAttendanceData = async (e) => {
         e.preventDefault();
 
-        const { employeeID, intime, outtime, workingtime } = inputdata;
+        const { employeeID, intime, outtime, workingtime, attdate } = inputdata;
         if (employeeID === "") {
             toast.error("EmployeeId is Required !")
         } else if (intime === "") {
             toast.error("In time is Required !")
+         } else if (outtime === "" || outtime > getCurrentTime()) { // Check if out time is empty or future time
+                toast.error("Please select a valid out time.Future time is not allowed");
         } else {
 
             const data = new FormData();
@@ -98,6 +116,7 @@ const AddAttendance = () => {
             data.append("intime", intime)
             data.append("outtime", outtime)
             data.append("workingtime", workingtime)
+            data.append("attdate", attdate)
 
             const config = {
                 "Content-Type": "multipart/form-data"
@@ -115,7 +134,8 @@ const AddAttendance = () => {
                     employeeID: "",
                     intime: "",
                     outtime: "",
-                    workingtime: ""
+                    workingtime: "",
+                    attdate: new Date(),
 
                 });
                 setAttendanceadd(response.data)
@@ -165,15 +185,35 @@ const AddAttendance = () => {
                                         <Form.Label>In time</Form.Label>
                                         <Form.Control type="time" name='intime' value={inputdata.intime} onChange={setInputValue} />
                                     </Form.Group>
+                                    {/* 
                                     <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                                         <Form.Label>Out time</Form.Label>
                                         <Form.Control type="time" name='outtime' value={inputdata.outtime} onChange={setInputValue} />
                                     </Form.Group>
+                                    */}
+                                    <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
+                                        <Form.Label>Out time</Form.Label>
+                                        <Form.Control
+                                            type="time"
+                                            name='outtime'
+                                            value={inputdata.outtime}
+                                            onChange={setInputValue}
+                                            max={getCurrentTime()} // Setting max attribute to current time
+                                        />
+                                    </Form.Group>
+
                                     <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                                         <Form.Label>Work Time</Form.Label>
                                         <Form.Control type="text" name='workingtime' value={inputdata.workingtime} disabled />
                                     </Form.Group>
-
+                                    <Form.Group className="mb-3 col-lg-6" controlId="formBasicStartDate">
+                                        <Form.Label>Attendance Date</Form.Label>
+                                        <DatePicker
+                                            selected={inputdata.attdate}
+                                            onChange={(date) => handleDateChange(date, "attdate")}
+                                            dateFormat="yyyy-MM-dd"
+                                        />
+                                    </Form.Group>
                                 </Row>
 
                             </Form>

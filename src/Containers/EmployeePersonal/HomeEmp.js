@@ -61,7 +61,7 @@ const HomeEmp = () => {
     }
   }
 
-  // export employee
+  // export to csv employee
   const exportemployee = async () => {
     const response = await exporttocsvfunc();
 

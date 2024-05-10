@@ -13,6 +13,7 @@ const EmpMailer = () => {
         ).then(res => {
             console.log(res);
         }).catch(err=> console.log(err));
+        alert('Email sent successfully')
     }
     return (
         <div className="container border"
